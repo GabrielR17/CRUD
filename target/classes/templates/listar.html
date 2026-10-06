@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<head th:replace="~{fragments/head :: head('Fútbol - Listado')}"></head>
+<body>
+
+	<div th:replace="~{fragments/header :: header}"></div>
+
+	<div class="container py-5">
+		<div th:replace="~{fragments/alertas :: alertas}"></div>
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<div>
+				<h3 class="mb-0">Listado de Clubes</h3>
+				<p class="text-muted small mb-0" th:text="${listaClubes.size()} + ' club(es) registrado(s)'"></p>
+			</div>
+			<a href="/" class="btn btn-gradient"><i class="bi bi-plus-lg me-1"></i>Nuevo Club</a>
+		</div>
+
+		<div class="table-responsive table-dark-glass p-2">
+			<table class="table table-borderless align-middle mb-0">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Entrenador</th>
+						<th>Asociación</th>
+						<th class="text-center">Jugadores</th>
+						<th class="text-center">Competiciones</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${listaClubes}">
+						<td><span class="badge badge-id rounded-pill" th:text="${c.id}"></span></td>
+						<td class="fw-medium" th:text="${c.nombre}"></td>
+						<td>
+							<span th:if="${c.entrenador != null}" th:text="${c.entrenador.nombre} + ' ' + ${c.entrenador.apellido}"></span>
+							<span th:unless="${c.entrenador != null}" class="text-muted fst-italic">Sin entrenador</span>
+						</td>
+						<td>
+							<span th:if="${c.asociacion != null}" th:text="${c.asociacion.nombre}"></span>
+							<span th:unless="${c.asociacion != null}" class="text-muted fst-italic">Sin asociación</span>
+						</td>
+						<td class="text-center" th:text="${c.jugadores.size()}"></td>
+						<td class="text-center" th:text="${c.competiciones.size()}"></td>
+						<td class="text-center text-nowrap">
+							<a th:href="@{/detalle/{id}(id=${c.id})}" class="btn btn-sm btn-outline-info" title="Ver">
+								<i class="bi bi-eye"></i>
+							</a>
+							<a th:href="@{/editar/{id}(id=${c.id})}" class="btn btn-sm btn-outline-warning" title="Editar">
+								<i class="bi bi-pencil"></i>
+							</a>
+							<a th:href="@{/eliminar/{id}(id=${c.id})}" class="btn btn-sm btn-outline-danger" title="Eliminar"
+								onclick="return confirm('¿Está seguro de eliminar este club?');">
+								<i class="bi bi-trash"></i>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${listaClubes.isEmpty()}">
+						<td colspan="7" class="text-center text-muted py-4">
+							<i class="bi bi-inbox fs-3 d-block mb-2"></i>
+							No hay clubes registrados
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

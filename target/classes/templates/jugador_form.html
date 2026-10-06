@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<head th:replace="~{fragments/head :: head('Fútbol - Jugador')}"></head>
+<body>
+
+	<div th:replace="~{fragments/header :: header}"></div>
+
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card card-glass">
+					<div class="card-header py-3">
+						<h4 class="mb-0 d-flex align-items-center gap-2">
+							<i class="bi" th:classappend="${jugador.id} == null ? 'bi-person-plus' : 'bi-pencil-square'"></i>
+							<span th:text="${jugador.id} == null ? 'Nuevo Jugador' : 'Editar Jugador'"></span>
+						</h4>
+					</div>
+					<div class="card-body p-4">
+						<form th:action="@{/jugadores/guardar}" th:object="${jugador}" method="post" novalidate>
+							<input type="hidden" th:field="*{id}" />
+
+							<div class="mb-3">
+								<label class="form-label text-muted small">NOMBRE</label>
+								<input type="text" class="form-control form-control-dark" th:field="*{nombre}"
+									th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'">
+								<div class="invalid-feedback" th:errors="*{nombre}"></div>
+							</div>
+							<div class="mb-3">
+								<label class="form-label text-muted small">APELLIDO</label>
+								<input type="text" class="form-control form-control-dark" th:field="*{apellido}"
+									th:classappend="${#fields.hasErrors('apellido')} ? 'is-invalid'">
+								<div class="invalid-feedback" th:errors="*{apellido}"></div>
+							</div>
+							<div class="mb-3">
+								<label class="form-label text-muted small">NÚMERO DE CAMISETA</label>
+								<input type="number" class="form-control form-control-dark" th:field="*{numero}"
+									th:classappend="${#fields.hasErrors('numero')} ? 'is-invalid'">
+								<div class="invalid-feedback" th:errors="*{numero}"></div>
+							</div>
+							<div class="mb-4">
+								<label class="form-label text-muted small">POSICIÓN</label>
+								<input type="text" class="form-control form-control-dark" th:field="*{posicion}"
+									th:classappend="${#fields.hasErrors('posicion')} ? 'is-invalid'" placeholder="Portero, Defensa, Mediocampista, Delantero">
+								<div class="invalid-feedback" th:errors="*{posicion}"></div>
+							</div>
+
+							<div class="d-flex justify-content-between">
+								<a href="/jugadores/listar" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Cancelar</a>
+								<button type="submit" class="btn btn-gradient px-4"><i class="bi bi-check2-circle me-1"></i>Guardar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
