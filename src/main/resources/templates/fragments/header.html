@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<nav th:fragment="header" class="navbar navbar-expand-lg navbar-glass sticky-top">
+		<div class="container">
+			<a class="navbar-brand d-flex align-items-center gap-2" href="/listar">
+				<i class="bi bi-trophy-fill fs-4"></i>
+				<span>Fútbol API REST</span>
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/listar"><i class="bi bi-shield-fill me-1"></i>Clubes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/entrenadores/listar"><i class="bi bi-person-badge me-1"></i>Entrenadores</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/jugadores/listar"><i class="bi bi-people me-1"></i>Jugadores</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/asociaciones/listar"><i class="bi bi-building me-1"></i>Asociaciones</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/competiciones/listar"><i class="bi bi-award me-1"></i>Competiciones</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</body>
+</html>

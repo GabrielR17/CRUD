@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<head th:replace="~{fragments/head :: head('Fútbol - Jugadores')}"></head>
+<body>
+
+	<div th:replace="~{fragments/header :: header}"></div>
+
+	<div class="container py-5">
+		<div th:replace="~{fragments/alertas :: alertas}"></div>
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<div>
+				<h3 class="mb-0">Listado de Jugadores</h3>
+				<p class="text-muted small mb-0" th:text="${listaJugadores.size()} + ' jugador(es) registrado(s)'"></p>
+			</div>
+			<a href="/jugadores/nuevo" class="btn btn-gradient"><i class="bi bi-plus-lg me-1"></i>Nuevo Jugador</a>
+		</div>
+
+		<div class="table-responsive table-dark-glass p-2">
+			<table class="table table-borderless align-middle mb-0">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th class="text-center">Número</th>
+						<th>Posición</th>
+						<th>Club(es)</th>
+						<th class="text-center">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="j : ${listaJugadores}" th:with="clubes=${clubesPorJugador[j.id]}">
+						<td><span class="badge badge-id rounded-pill" th:text="${j.id}"></span></td>
+						<td class="fw-medium" th:text="${j.nombre}"></td>
+						<td th:text="${j.apellido}"></td>
+						<td class="text-center" th:text="${j.numero}"></td>
+						<td th:text="${j.posicion}"></td>
+						<td>
+							<span th:if="${clubes != null}" th:text="${clubes}"></span>
+							<span th:unless="${clubes != null}" class="text-muted fst-italic">Sin asignar</span>
+						</td>
+						<td class="text-center text-nowrap">
+							<a th:href="@{/jugadores/editar/{id}(id=${j.id})}" class="btn btn-sm btn-outline-warning" title="Editar">
+								<i class="bi bi-pencil"></i>
+							</a>
+							<a th:href="@{/jugadores/eliminar/{id}(id=${j.id})}" class="btn btn-sm btn-outline-danger" title="Eliminar"
+								onclick="return confirm('¿Está seguro de eliminar este jugador?');">
+								<i class="bi bi-trash"></i>
+							</a>
+						</td>
+					</tr>
+					<tr th:if="${listaJugadores.isEmpty()}">
+						<td colspan="7" class="text-center text-muted py-4">
+							<i class="bi bi-inbox fs-3 d-block mb-2"></i>
+							No hay jugadores registrados
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
